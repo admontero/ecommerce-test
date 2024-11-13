@@ -7,6 +7,7 @@ use App\Http\Requests\Api\v1\StoreOrderRequest;
 use App\Http\Requests\Api\v1\UpdateOrderRequest;
 use App\Http\Resources\v1\OrderResource;
 use App\Models\Order;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class OrderController extends Controller
@@ -30,9 +31,11 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(Order $order): OrderResource
     {
-        //
+        $order->load(['user', 'items']);
+
+        return new OrderResource($order);
     }
 
     /**
@@ -46,8 +49,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy(Order $order): JsonResponse
     {
-        //
+        $order->delete();
+
+        return $this->success(message: 'The order has been deleted succesfully');
     }
 }
