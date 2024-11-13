@@ -10,6 +10,7 @@ use App\Http\Requests\Api\v1\StoreProductRequest;
 use App\Http\Requests\Api\v1\UpdateProductRequest;
 use App\Models\Product;
 use App\Http\Resources\v1\ProductResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductController extends Controller
@@ -19,7 +20,7 @@ class ProductController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return ProductResource::collection(Product::paginate());
+        return ProductResource::collection(Product::latest()->paginate());
     }
 
     /**
@@ -53,8 +54,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
-        //
+        $product->delete();
+
+        return $this->success(message: 'The product has been deleted succesfully');
     }
 }
