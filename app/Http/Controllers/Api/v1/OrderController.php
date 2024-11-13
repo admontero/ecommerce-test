@@ -46,7 +46,7 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order, UpdateOrderAction $updateOrderAction)
+    public function update(UpdateOrderRequest $request, Order $order, UpdateOrderAction $updateOrderAction): OrderResource
     {
         $order = $updateOrderAction->handle($order, OrderDTO::fromUpdateRequest($request));
 
