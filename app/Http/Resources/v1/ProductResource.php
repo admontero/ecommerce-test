@@ -25,6 +25,10 @@ class ProductResource extends JsonResource
                 'value' => $this->getRawOriginal('price'),
                 'formattedValue' => $this->price,
             ],
+            'description' => $this->when($request->routeIs('products.show'), $this->description),
+            'links' => [
+                'self' => route('products.show', ['product' => $this->slug])
+            ]
         ];
     }
 }
