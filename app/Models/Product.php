@@ -14,6 +14,20 @@ class Product extends Model
     use HasFactory;
     use HasSlug;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'code',
+        'brand',
+        'price',
+        'stock',
+        'description',
+    ];
+
     protected $casts = [
         'price' => MoneyCast::class,
     ];
