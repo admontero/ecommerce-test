@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\v1;
 
+use App\Enums\OrderStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateOrderRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,18 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'status' => ['required', Rule::enum(OrderStatusEnum::class)],
+            'items' => 'required|array',
+            'items.*.product_id' => 'required|numeric|exists:products,id',
+            'items.*.quantity' => 'required|integer|min:0',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'items.*.product_id' => 'item product_id',
+            'items.*.quantity' => 'item quantity',
         ];
     }
 }
