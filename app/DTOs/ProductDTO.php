@@ -29,6 +29,18 @@ class ProductDTO
             description: $request->input('description'),
         );
     }
+
+    public static function fromUpdateRequest(Request $request): self
+    {
+        return new self(
+            name: $request->input('name'),
+            code: $request->input('code'),
+            brand: $request->input('brand'),
+            price: $request->input('price'),
+            stock: $request->input('stock'),
+            description: $request->input('description'),
+        );
+    }
 }
 
 

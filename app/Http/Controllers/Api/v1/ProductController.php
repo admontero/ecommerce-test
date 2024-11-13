@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Actions\CreateProductAction;
+use App\Actions\UpdateProductAction;
 use App\DTOs\ProductDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\StoreProductRequest;
@@ -42,9 +43,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product, UpdateProductAction $updateProductAction): ProductResource
     {
-        //
+        $product = $updateProductAction->handle($product, ProductDTO::fromUpdateRequest($request));
+
+        return new ProductResource($product);
     }
 
     /**
