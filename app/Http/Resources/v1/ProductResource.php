@@ -4,6 +4,7 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Number;
 
 class ProductResource extends JsonResource
 {
@@ -22,8 +23,8 @@ class ProductResource extends JsonResource
             'brand' => $this->brand,
             'stock' => $this->stock,
             'price' => [
-                'value' => $this->getRawOriginal('price'),
-                'formattedValue' => $this->price,
+                'value' => $this->price,
+                'formattedValue' => Number::currency($this->price, 'COP'),
             ],
             'description' => $this->when($request->routeIs('products.show'), $this->description),
             'createdAt' => $this->created_at,

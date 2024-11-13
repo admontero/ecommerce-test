@@ -38,15 +38,14 @@ class DatabaseSeeder extends Seeder
                         return [
                             'product_id' => $product->id,
                             'name' => $product->name,
-                            'price' => $product->getRawOriginal('price'),
+                            'price' => $product->price,
                             'quantity' => $quantity,
-                            'total' => $product->getRawOriginal('price') * $quantity,
                         ];
                     }))
                     ->create();
 
                 $order->update([
-                    'amount' => $order->items->sum('total'),
+                    'amount' => $order->items->sum(fn ($item) => $item->price * $item->quantity),
                 ]);
             });
     }

@@ -28,7 +28,6 @@ class OrderItemFactory extends Factory
             'name' => $this->faker->randomElement(['T-Shirt', 'Jacket', 'Pants', 'Hat', 'Shorts', 'Skirt', 'Dress']),
             'price' => $price,
             'quantity' => $quantity,
-            'total' => $price * $quantity,
         ];
     }
 }

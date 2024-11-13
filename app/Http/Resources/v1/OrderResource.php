@@ -4,6 +4,7 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Number;
 
 class OrderResource extends JsonResource
 {
@@ -17,8 +18,8 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'amount' => [
-                'value' => $this->getRawOriginal('amount'),
-                'formattedValue' => $this->amount,
+                'value' => $this->amount,
+                'formattedValue' => Number::currency($this->amount, 'COP'),
             ],
             'status' => $this->status,
             'createdAt' => $this->created_at,

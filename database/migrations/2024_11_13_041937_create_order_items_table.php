@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('price');
             $table->unsignedInteger('quantity');
-            $table->unsignedInteger('total');
             $table->timestamps();
         });
     }

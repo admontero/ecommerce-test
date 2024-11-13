@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Actions\CreateOrderAction;
+use App\DTOs\OrderDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\StoreOrderRequest;
 use App\Http\Requests\Api\v1\UpdateOrderRequest;
@@ -23,9 +25,11 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request, CreateOrderAction $createOrderAction): OrderResource
     {
-        //
+        $order = $createOrderAction->handle(OrderDTO::fromStoreRequest($request));
+
+        return new OrderResource($order);
     }
 
     /**

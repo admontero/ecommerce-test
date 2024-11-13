@@ -4,6 +4,7 @@ namespace App\Http\Resources\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Number;
 
 class OrderItemResource extends JsonResource
 {
@@ -18,14 +19,10 @@ class OrderItemResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => [
-                'value' => $this->getRawOriginal('price'),
-                'formattedValue' => $this->price,
+                'value' => $this->price,
+                'formattedValue' => Number::currency($this->price, 'COP'),
             ],
             'quantity' => $this->quantity,
-            'total' => [
-                'value' => $this->getRawOriginal('total'),
-                'formattedValue' => $this->total,
-            ],
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];
