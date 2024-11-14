@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Actions\CreateOrderAction;
 use App\Actions\UpdateOrderAction;
 use App\DTOs\OrderDTO;
+use App\DTOs\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\StoreOrderRequest;
 use App\Http\Requests\Api\v1\UpdateOrderRequest;
@@ -28,7 +29,10 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request, CreateOrderAction $createOrderAction): OrderResource
     {
-        $order = $createOrderAction->handle(OrderDTO::fromStoreRequest($request));
+        $order = $createOrderAction->handle(
+           data: OrderDTO::fromStoreRequest($request),
+           user: UserDTO::fromEloquentModel(request()->user()),
+        );
 
         return new OrderResource($order);
     }
@@ -48,7 +52,11 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order, UpdateOrderAction $updateOrderAction): OrderResource
     {
-        $order = $updateOrderAction->handle($order, OrderDTO::fromUpdateRequest($request));
+        $order = $updateOrderAction->handle(
+            order: $order,
+            data: OrderDTO::fromUpdateRequest($request),
+            user: UserDTO::fromEloquentModel(request()->user()),
+        );
 
         return new OrderResource($order);
     }
