@@ -2,6 +2,8 @@
 
 API para la gestión de productos y órdenes.
 
+![Alt text](architecture.png)
+
 ## Instalación
 
 Clonar el repositorio
@@ -45,12 +47,23 @@ Para ejecutar las migraciones y las semillas use el siguiente comando:
 
     docker exec ecommerce-test bash -c "php artisan migrate --seed"
 
-Otros comandos importantes:
+*Otros comandos importantes:*
 
-    docker-compose up (Ejecutar los servicios)
-    docker-compose down (Detener los servicios)
-    docker-compose restart (Reiniciar los servicios)
-    docker-compose exec app bash (Entrar a la consola del contenedor)
+Ejecutar los servicios
+
+    docker-compose up
+
+Detener los servicios
+    
+    docker-compose down
+
+Reiniciar los servicios
+    
+    docker-compose restart
+    
+Entrar a la consola del contenedor
+
+    docker-compose exec app bash
 
 ## Documentación API
 
