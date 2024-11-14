@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Number;
 
-class ProductResource extends JsonResource
+class OrderItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,20 +18,13 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->slug,
-            'code' => $this->code,
-            'brand' => $this->brand,
-            'stock' => $this->stock,
             'price' => [
                 'value' => $this->price,
                 'formattedValue' => Number::currency($this->price, 'COP'),
             ],
-            'description' => $this->when($request->routeIs('products.show'), $this->description),
+            'quantity' => $this->quantity,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
-            'links' => [
-                'self' => route('products.show', ['product' => $this->slug])
-            ]
         ];
     }
 }
