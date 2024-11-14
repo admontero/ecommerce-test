@@ -83,7 +83,7 @@ class Handler
     {
         $exceptions->renderable(
             fn (\Throwable $e) => $this->error(
-                message: 'Unknown error',
+                message: 'Server error',
                 code: Response::HTTP_INTERNAL_SERVER_ERROR,
                 errors: []
             )
