@@ -35,7 +35,7 @@ Cambia las siguiente variables de entorno del .env:
     DB_CONNECTION=mysql
     DB_HOST=db
     DB_PORT=3306
-    DB_DATABASE=laravel
+    DB_DATABASE=ecommerce_test
     DB_USERNAME=root
     DB_PASSWORD=password
 
@@ -43,15 +43,17 @@ Ejecuta el siguiente comando para ejecutar la build:
 
     docker-compose build
 
-Para ejecutar las migraciones y las semillas use el siguiente comando:
+Luego levante todos los servicios:
+
+    docker-compose up
+
+Posterior a ello ejecute las migraciones y las semillas con el siguiente comando:
 
     docker exec ecommerce-test bash -c "php artisan migrate --seed"
 
+Ahora puedes ingresar a la aplicacion desde esta url http://your_server_ip reemplazandola con su ip, o también accediendo a http://localhost:80
+
 *Otros comandos importantes:*
-
-Ejecutar los servicios
-
-    docker-compose up
 
 Detener los servicios
     
